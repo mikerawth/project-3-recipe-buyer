@@ -15,7 +15,7 @@ const session = require('express-session');
 require('./config/passport-stuff');
 
 mongoose
-  .connect('mongodb://localhost/api-recipe-buyer', { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -70,6 +70,10 @@ app.use(cors({
   origin: ['http://localhost:3000', 'https://blah.herokuapp.com']
 }));
 
+
+// app.use((req, res, next) => {
+//   res.sendFile(__dirname + "/public/index.html")
+// })
 
 const ingredientsRouteVar = require('./routes/ingredientsRoutes');
 app.use('/api/ingredients', ingredientsRouteVar);
