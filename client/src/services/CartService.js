@@ -3,7 +3,7 @@ import axios from 'axios';
 class CartService {
   constructor() {
     let service = axios.create({
-      baseURL: 'http://localhost:5000/api/cart',
+      baseURL: process.env.REACT_APP_CARTSERVICE_BASE_URL,
       withCredentials: true,
     });
     this.service = service;
