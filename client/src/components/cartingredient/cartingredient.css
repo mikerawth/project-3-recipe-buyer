@@ -1,0 +1,26 @@
+.ing-listing:hover {
+  background-color: rgb(189, 189, 189);
+}
+
+.ing {
+  display: inline-block;
+  border: 1px solid black;
+  padding: 2.5px;
+  height: 25px;
+}
+
+.ing-name {
+  width: 200px;
+}
+
+.ing-amount {
+  width: 75px;
+}
+
+.ing-unit {
+  width: 100px;
+}
+
+.ing-cost {
+  width: 75px;
+}
