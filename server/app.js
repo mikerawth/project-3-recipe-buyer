@@ -71,9 +71,9 @@ app.use(cors({
 }));
 
 
-// app.use((req, res, next) => {
-//   res.sendFile(__dirname + "/public/index.html")
-// })
+app.use((req, res, next) => {
+  res.sendFile(__dirname + "/public/index.html")
+})
 
 const ingredientsRouteVar = require('./routes/ingredientsRoutes');
 app.use('/api/ingredients', ingredientsRouteVar);
