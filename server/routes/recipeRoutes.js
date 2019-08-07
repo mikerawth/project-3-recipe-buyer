@@ -77,13 +77,29 @@ router.get('/:recipeID/information', (req, res, next) => {
         // if it does, then send to React Side
         res.json(theResult)
       } else {
+        // let myPriceObject = {}
+        // const priceSearch = `/recipes/${req.params.recipeID}/priceBreakdownWidget.json`
+
+        // generateFoodApi(priceSearch).get()
+        //   .then((recipePriceObject) => {
+        //     recipePriceObject.data.ingredients.forEach((eachIng) => {
+        //       console.log('-=-=-=-=-=-=-', eachIng.name, eachIng.price)
+        //       myPriceObject[eachIng.name] = engIng.price
+        //       // console.log('=-=-=-=-=-=-=-=-=-=-=-myObject', myPriceObject)
+        //     })
+        //   })
+        //   .catch((err) => {
+        //     res.json(err)
+        //   })
+
+
         // if not, make call to API, get info, and create the seed here (on the server)
         const theSearch = `/recipes/${req.params.recipeID}/information`
 
         generateFoodApi(theSearch).get()
           .then((spoonData) => {
 
-            console.log(spoonData.data)
+
 
             const tagsArray = [
               'vegetarian',
