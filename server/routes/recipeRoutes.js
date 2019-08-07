@@ -24,14 +24,16 @@ router.get('/', (req, res, next) => {
 })
 
 
-router.get('/search/:theQuery', (req, res, next) => {
+router.post('/search/:theQuery', (req, res, next) => {
 
   SeedQueryAndResults.findOne({ query: req.params.theQuery })
     .then((theQuery) => {
       if (theQuery) {
+        console.log('we found a seed')
         res.json(theQuery)
       }
       else {
+        console.log('no seed was found, so we are doing a call to spoonacular')
         const theSearch = `/recipes/search/?query=${req.params.theQuery}`
 
         generateFoodApi(theSearch).get()
@@ -42,18 +44,22 @@ router.get('/search/:theQuery', (req, res, next) => {
               results: theResult.data.results,
             })
               .then((theCreatedQuery) => {
+                console.log('seed was created successfully')
                 res.json(theCreatedQuery) // returns array of recipes
               })
               .catch((err) => {
+                console.log('error is with creation of a seed')
                 res.json(err)
               })
           })
           .catch((err) => {
+            console.log('error is with attempting to call spoonacular API')
             res.json(err)
           })
       }
     })
     .catch((err) => {
+      console.log('error is with the first route, attempting to even find a query')
       res.json(err)
     })
 })
