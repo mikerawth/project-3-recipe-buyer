@@ -1,5 +1,5 @@
 import axios from 'axios'
-require('dotenv').config();
+
 
 class FoodService {
   constructor() {
@@ -16,7 +16,7 @@ class FoodService {
   }
 
   searchRecipes = (query) => {
-    return this.service.post('/recipes/search/' + query)
+    return this.service.post('/search/' + query)
       .then(response => {
         console.log('---', response)
         return response.data
@@ -24,26 +24,26 @@ class FoodService {
   }
 
   getRecipeSummary = (recipeID) => {
-    return this.service.get(`/recipes/${recipeID}/information`)
+    return this.service.get(`/${recipeID}/information`)
       .then(response => response.data)
   }
 
   // CHANGE TO GET PRICE OF RECIPE'S INGREDIENTS
   getRecipeIngredients = (recipeID) => {
-    return this.service.get(`/recipes/${recipeID}/ingredients`)
+    return this.service.get(`/${recipeID}/ingredients`)
       .then(response => response.data)
   }
 
   // DO NOT USE
   getRecipeInstructions = (recipeID) => {
-    return this.service.get(`/recipes/${recipeID}/instructions`)
+    return this.service.get(`/${recipeID}/instructions`)
       .then(response => response.data)
   }
 
-  addIngredients = (theIngredients, apiID) => {
-    return this.service.post('/cart/addIngredients', { theIngredients, apiID })
-      .then(response => response.data)
-  }
+  // addIngredients = (theIngredients, apiID) => {
+  //   return this.service.post('/cart/addIngredients', { theIngredients, apiID })
+  //     .then(response => response.data)
+  // }
 }
 
 export default FoodService
