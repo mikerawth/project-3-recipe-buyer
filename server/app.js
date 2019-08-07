@@ -71,9 +71,6 @@ app.use(cors({
 }));
 
 
-// app.use((req, res, next) => {
-//   res.sendFile(__dirname + "/public/index.html")
-// })
 
 const ingredientsRouteVar = require('./routes/ingredientsRoutes');
 app.use('/api/ingredients', ingredientsRouteVar);
@@ -86,6 +83,11 @@ app.use('/api/auth', authRoutes);
 
 const cartRoutes = require('./routes/cartRoutes');
 app.use('/api/cart', cartRoutes);
+
+
+app.use((req, res, next) => {
+  res.sendFile(__dirname + "/public/index.html")
+})
 
 
 module.exports = app;
