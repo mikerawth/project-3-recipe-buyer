@@ -19,6 +19,31 @@ function generateFoodApi(queryString) {
   )
 }
 
+function getRecipeIngPricingObject(recipeID) {
+  const priceSearch = `/recipes/${recipeID}/priceBreakdownWidget.json`
+
+  generateFoodApi(priceSearch).get()
+    .then((recipePriceObject) => {
+      let nameArr = recipePriceObject.data.ingredients.map((eachIng) => {
+        return eachIng.name
+      })
+
+      let priceArr = recipePriceObject.data.ingredients.map((eachIng) => {
+        return eachIng.price
+      })
+
+      let myPriceObject = {}
+      for (let i = 0; i < nameArr.length; i++) {
+        myPriceObject[nameArr[i]] = priceArr[i]
+      }
+      return myPriceObject;
+
+    })
+    .catch((err) => {
+      res.json(err)
+    })
+}
+
 router.get('/', (req, res, next) => {
   res.json(foodApi)
 })
@@ -77,83 +102,97 @@ router.get('/:recipeID/information', (req, res, next) => {
         // if it does, then send to React Side
         res.json(theResult)
       } else {
-        // let myPriceObject = {}
-        // const priceSearch = `/recipes/${req.params.recipeID}/priceBreakdownWidget.json`
-
-        // generateFoodApi(priceSearch).get()
-        //   .then((recipePriceObject) => {
-        //     recipePriceObject.data.ingredients.forEach((eachIng) => {
-        //       console.log('-=-=-=-=-=-=-', eachIng.name, eachIng.price)
-        //       myPriceObject[eachIng.name] = engIng.price
-        //       // console.log('=-=-=-=-=-=-=-=-=-=-=-myObject', myPriceObject)
-        //     })
-        //   })
-        //   .catch((err) => {
-        //     res.json(err)
-        //   })
 
 
-        // if not, make call to API, get info, and create the seed here (on the server)
-        const theSearch = `/recipes/${req.params.recipeID}/information`
+        const priceSearch = `/recipes/219957/priceBreakdownWidget.json`
 
-        generateFoodApi(theSearch).get()
-          .then((spoonData) => {
-
-
-
-            const tagsArray = [
-              'vegetarian',
-              'vegan',
-              'glutenFree',
-              'dairyFree',
-              'veryHealthy',
-              'cheap',
-              'veryPopular',
-              'sustainable',
-              'lowFodmap',
-              'ketogenic',
-              'whole30']
-
-
-            let grabbedTags = [];
-            tagsArray.forEach((eachT) => {
-              if (spoonData.data[eachT]) {
-                grabbedTags.push(eachT)
-              }
+        generateFoodApi(priceSearch).get()
+          .then((recipePriceObject) => {
+            let nameArr = recipePriceObject.data.ingredients.map((eachIng) => {
+              return eachIng.name
             })
 
-
-            let grabbedIngredients = spoonData.data.extendedIngredients.map((eachI) => {
-              return ({
-                spoonID: eachI.id,
-                name: eachI.name,
-                usAmount: eachI.measures.us.amount,
-                usUnit: eachI.measures.us.unitLong,
-                metricAmount: eachI.measures.metric.amount,
-                metricUnit: eachI.measures.metric.unitLong,
-              })
+            let priceArr = recipePriceObject.data.ingredients.map((eachIng) => {
+              return eachIng.price
             })
 
+            let myPriceObject = {}
+            for (let i = 0; i < nameArr.length; i++) {
+              myPriceObject[nameArr[i]] = priceArr[i]
+            }
+            // adding code here
+            // if not, make call to API, get info, and create the seed here (on the server)
+            const theSearch = `/recipes/${req.params.recipeID}/information`
+
+            generateFoodApi(theSearch).get()
+              .then((spoonData) => {
+
+                const tagsArray = [
+                  'vegetarian',
+                  'vegan',
+                  'glutenFree',
+                  'dairyFree',
+                  'veryHealthy',
+                  'cheap',
+                  'veryPopular',
+                  'sustainable',
+                  'lowFodmap',
+                  'ketogenic',
+                  'whole30']
 
 
-            SeedRecipe.create({
-              spoonID: spoonData.data.id,
-              title: spoonData.data.title,
-              ingredients: grabbedIngredients,
-              instructions: spoonData.data.analyzedInstructions[0].steps,
-              tags: grabbedTags,
-            })
-              .then((freshlyCreatedRecipe) => {
-                res.json(freshlyCreatedRecipe)
+                let grabbedTags = [];
+                tagsArray.forEach((eachT) => {
+                  if (spoonData.data[eachT]) {
+                    grabbedTags.push(eachT)
+                  }
+                })
+
+
+                let grabbedIngredients = spoonData.data.extendedIngredients.map((eachI) => {
+                  return ({
+                    spoonID: eachI.id,
+                    name: eachI.name,
+                    usAmount: eachI.measures.us.amount,
+                    usUnit: eachI.measures.us.unitLong,
+                    metricAmount: eachI.measures.metric.amount,
+                    metricUnit: eachI.measures.metric.unitLong,
+                    price: myPriceObject[eachI.name],
+                  })
+                })
+
+
+
+                SeedRecipe.create({
+                  spoonID: spoonData.data.id,
+                  title: spoonData.data.title,
+                  ingredients: grabbedIngredients,
+                  instructions: spoonData.data.analyzedInstructions[0].steps,
+                  tags: grabbedTags,
+                })
+                  .then((freshlyCreatedRecipe) => {
+                    res.json(freshlyCreatedRecipe)
+                  })
+                  .catch((err) => {
+                    res.json(err)
+                  })
+                // res.json(response.data) // should return summary of a single recipe
               })
               .catch((err) => {
                 res.json(err)
               })
-            // res.json(response.data) // should return summary of a single recipe
+
+
+
+
+
+            // code ends here
           })
           .catch((err) => {
             res.json(err)
           })
+
+
       }
     })
     .catch((err) => {
@@ -179,23 +218,35 @@ router.get('/:recipeID/price', (req, res, next) => {
     })
 })
 
-router.get('/test/:query', (req, res, next) => {
+router.get('/test/', (req, res, next) => {
   // const theSearch = `/recipes/${req.params.recipeID}/priceBreakdownWidget.json`
   // generateFoodApi(theSearch).get()
 
-  axios({
-    method: 'get',
-    url: `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search/?query=${req.params.query}`,
-    headers: {
-      'x-rapidapi-key': process.env.APIKEY,
-      'x-rapidapi-host': process.env.APIHOST
-    }
-  })
-    .then((response) => {
-      console.log("><><<>><<><><><><><><><>>>>><>< ", req.params.query);
 
-      console.log('the response results --=-=-=-=-=-=-=-=-=-=-=-:', response.data)
-      res.json(response.data) // should return summary of a single recipe
+  const priceSearch = `/recipes/219957/priceBreakdownWidget.json`
+
+  generateFoodApi(priceSearch).get()
+    .then((recipePriceObject) => {
+      let nameArr = recipePriceObject.data.ingredients.map((eachIng) => {
+        return eachIng.name
+      })
+
+      let priceArr = recipePriceObject.data.ingredients.map((eachIng) => {
+        return eachIng.price
+      })
+
+      let myPriceObject = {}
+      for (let i = 0; i < nameArr.length; i++) {
+        myPriceObject[nameArr[i]] = priceArr[i]
+      }
+
+
+
+
+
+
+
+      res.json(myPriceObject)
     })
     .catch((err) => {
       res.json(err)
