@@ -179,19 +179,21 @@ router.get('/:recipeID/price', (req, res, next) => {
     })
 })
 
-router.get('/test/', (req, res, next) => {
+router.get('/test/:query', (req, res, next) => {
   // const theSearch = `/recipes/${req.params.recipeID}/priceBreakdownWidget.json`
   // generateFoodApi(theSearch).get()
 
   axios({
     method: 'get',
-    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/219957/priceBreakdownWidget.json',
+    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/219957/information',
     headers: {
       'x-rapidapi-key': process.env.APIKEY,
       'x-rapidapi-host': process.env.APIHOST
     }
   })
     .then((response) => {
+      console.log("><><<>><<><><><><><><><>>>>><>< ", req.params.query);
+
       console.log('the response results --=-=-=-=-=-=-=-=-=-=-=-:', response.data)
       res.json(response.data) // should return summary of a single recipe
     })
