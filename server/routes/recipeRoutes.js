@@ -192,6 +192,7 @@ router.get('/test/', (req, res, next) => {
     }
   })
     .then((response) => {
+      console.log('the response results --=-=-=-=-=-=-=-=-=-=-=-:', response)
       res.json(response.data) // should return summary of a single recipe
     })
     .catch((err) => {
