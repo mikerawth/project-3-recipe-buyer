@@ -37,6 +37,7 @@ class RecipeSearch extends Component {
   displayRecipeSearchResults = () => {
     if (this.state.ready) {
       // this.setState({ ready: false })
+      console.log("i'm ready, i'm ready, i'm ready", this.state.ready)
       return this.state.searchResults.map((eachRecipe, i) => {
         return (
           <div key={i} className="recipe-search-result">
