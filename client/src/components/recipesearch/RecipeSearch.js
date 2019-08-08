@@ -9,6 +9,7 @@ class RecipeSearch extends Component {
     this.state = {
       recipeName: '',
       searchResults: [],
+      ready: false,
     };
     this.service = new FoodService();
   }
@@ -27,26 +28,31 @@ class RecipeSearch extends Component {
         console.log("==============", searchResults)
         this.setState({
           searchResults: searchResults.results,
-
+          ready: true
         })
       })
 
   }
 
   displayRecipeSearchResults = () => {
-    return this.state.searchResults.map((eachRecipe, i) => {
-      return (
-        <div key={i} className="recipe-search-result">
-          {/* //   <Link to={`recipes/summary/${eachRecipe.id}`}>
-        //     {eachRecipe.title}
-        //   </Link> */}
-          <RecipeSearchResult
-            recipeID={eachRecipe.id}
-            recipeTitle={eachRecipe.title}
-          />
-        </div>
-      )
-    })
+    if (this.state.ready) {
+      // this.setState({ ready: false })
+      return this.state.searchResults.map((eachRecipe, i) => {
+        return (
+          <div key={i} className="recipe-search-result">
+            {/* //   <Link to={`recipes/summary/${eachRecipe.id}`}>
+          //     {eachRecipe.title}
+          //   </Link> */}
+            <RecipeSearchResult
+              recipeID={eachRecipe.id}
+              recipeTitle={eachRecipe.title}
+            />
+          </div>
+        )
+      })
+    } else {
+      return (<div>Loading</div>)
+    }
   }
 
 
