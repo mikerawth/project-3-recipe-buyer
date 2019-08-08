@@ -10,7 +10,7 @@ const SeedRecipe = require('../models/SeedRecipe')
 function generateFoodApi(queryString) {
   return (
     axios.create({
-      baseURL: `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/${queryString}`,
+      baseURL: `${process.env.APIBASEURL}${queryString}`,
       headers: {
         'x-rapidapi-key': process.env.APIKEY,
         'x-rapidapi-host': process.env.APIHOST
