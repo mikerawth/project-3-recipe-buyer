@@ -17,7 +17,10 @@ class FoodService {
 
   searchRecipes = (query) => {
     return this.service.post('/search/' + query)
-      .then(response => response.data)
+      .then(response => {
+        console.log("the response in the component >>>>>>>> ", response.data)
+        return response.data
+      })
   }
 
   getRecipeSummary = (recipeID) => {
