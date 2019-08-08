@@ -31,8 +31,8 @@ class CartService {
       .then(response => response.data)
   }
 
-  toggleIngredient = (ingID, currentStatus) => {
-    return this.service.post(`/ing/toggle/`, { ingID, currentStatus })
+  toggleIngredient = (ingID, currentStatus, recipeID) => {
+    return this.service.post(`/ing/toggle/`, { ingID, currentStatus, recipeID })
       .then(response => response.data)
   }
 }

@@ -118,19 +118,65 @@ router.post('/ing/', (req, res, next) => {
 })
 
 router.post('/ing/toggle/', (req, res, next) => {
-  const theID = req.body.ingID;
+  const ingID = req.body.ingID;
   const bool = !req.body.currentStatus;
+  const recipeID = req.body.recipeID
 
-  Ingredient.findByIdAndUpdate(theID, {
+  Ingredient.findByIdAndUpdate(ingID, {
     include: bool
   })
-    .then((response) => {
-      res.json(response)
+    .then(() => {
+      // grab all ingredients in recipe
+      Recipe.findById(recipeID).populate('ingredients')
+        .then((theRecipe) => {
+          let priceArray = theRecipe.ingredients.map((eachIng) => {
+            if (eachIng.include) {
+              return eachIng.price
+            }
+          })
+          let recipePrice = priceArray.reduce((a, b) => {
+            // if b is not null
+            if (b) {
+              return a + b
+            }
+            else {
+              return a
+            }
+          }, 0)
+          Recipe.findByIdAndUpdate(recipeID, {
+            cost: Number(recipePrice.toFixed(2))
+          })
+            .then((response) => {
+              console.log('reponse-=-=-  -=-=-  -= =- =- =- =- =- ', response)
+              res.json(response)
+            })
+            .catch((err) => {
+              res.json(err)
+            })
+
+        })
+        .catch((err) => {
+          res.json(err)
+        })
     })
     .catch((err) => {
       res.json(err)
     })
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 router.delete('/recipe/single', (req, res, next) => {

@@ -45,10 +45,10 @@ class CartIngredient extends React.Component {
   }
 
   checkBoxToggle = () => {
-    this.cartService.toggleIngredient(this.state.id, this.state.ingInclude)
-      .then(() => {
-        this.setState({ ingInclude: !this.state.ingInclude },
-          () => console.log(this.state.id))
+    this.cartService.toggleIngredient(this.state.id, this.state.ingInclude, this.props.recipeID)
+      .then((theResponse) => {
+        this.setState({ ingInclude: !this.state.ingInclude }, this.props.updateRecipePrice(theResponse.cost))
+
       })
   }
 
@@ -82,7 +82,7 @@ class CartIngredient extends React.Component {
         <div className="ing ing-unit">{this.state.ingUsUnit}</div>
         {/* <div>{this.state.ingMetAmount}</div>
         <div>{this.state.ingMetUnit}</div> */}
-        <div className="ing ing-cost">{this.state.ingCost}</div>
+        <div className="ing ing-cost">${this.state.ingCost.toFixed(2)}</div>
       </div>
     )
   }

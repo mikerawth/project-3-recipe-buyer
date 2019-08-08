@@ -10,6 +10,7 @@ class Cart extends React.Component {
       cartIngredients: [],
       cartRecipes: [],
       ready: false,
+      cartTotal: 0,
     }
     this.cartService = new CartService()
   }
@@ -27,11 +28,11 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    // this.getCartIngredients();
     this.getUsersCart();
     this.isReady();
-
   }
+
+
 
   displayCartRecipes = () => {
     return this.state.cartRecipes.map((eachRecipe) => {
@@ -47,6 +48,7 @@ class Cart extends React.Component {
     if (this.state.ready)
       return (
         <div>
+          <div>Total: {this.state.cartTotal}</div>
           {this.displayCartRecipes()}
         </div>
       )

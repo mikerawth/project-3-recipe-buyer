@@ -15,19 +15,37 @@ class CartRecipe extends React.Component {
     }
   }
 
+  updateRecipePrice = (updatedCost) => {
+    this.setState({ recipeTotal: updatedCost })
+
+  }
+
   displayRecipeIngredients = () => {
     return this.state.recipeIngredients.map((eachIng) => {
       return (
         <div className="ingredient-listing" key={eachIng._id}>
-          <CartIngredient eachIng={eachIng} />
+          <CartIngredient
+            eachIng={eachIng}
+            recipeID={this.props.recipeInfo._id}
+            updateRecipePrice={this.updateRecipePrice}
+          />
         </div>
       )
     })
   }
 
+
   componentDidMount() {
     this.isReady();
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.state.recipeTotal != nextState.recipeTotal;
+  // }
+
+  // componentWillUpdate() {
+  //   this.updateRecipePrice();
+  // }
 
   isReady = () => {
     this.setState({ ready: true })
@@ -46,7 +64,7 @@ class CartRecipe extends React.Component {
             <div className="ing-name"></div>
             <div className="ing-amount"></div>
             <div className="ing-unit">Total:</div>
-            <div className="ing-cost">{this.state.recipeTotal}</div>
+            <div className="ing-cost">${this.state.recipeTotal}</div>
           </span>
         </div>
       )
