@@ -80,7 +80,7 @@ class App extends React.Component {
           />
         }
 
-        <div>My Heroku updated if this is showing on Heroku</div>
+        {/* <div>My Heroku updated if this is showing on Heroku</div> */}
         <Switch>
 
           {/* <Route exact path="/login" render={(props) =>
