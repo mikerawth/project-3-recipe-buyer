@@ -185,7 +185,7 @@ router.get('/test/:query', (req, res, next) => {
 
   axios({
     method: 'get',
-    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/219957/information',
+    url: `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search/?query=${req.params.query}`,
     headers: {
       'x-rapidapi-key': process.env.APIKEY,
       'x-rapidapi-host': process.env.APIHOST
