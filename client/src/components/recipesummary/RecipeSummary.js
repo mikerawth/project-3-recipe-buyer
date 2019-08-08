@@ -33,8 +33,8 @@ class RecipeSummary extends React.Component {
       return (
         <div key={i}>
           <span className="ingredient-name">{eachIngredient.name} / </span>
-          <span className="ingredient-amount-us">{eachIngredient.usAmount}{eachIngredient.usUnit} / </span>
-          <span className="ingredient-amount-metric">{eachIngredient.metricAmount}{eachIngredient.metricUnit}</span>
+          <span className="ingredient-amount-us">{eachIngredient.usAmount} {eachIngredient.usUnit} / </span>
+          <span className="ingredient-amount-metric">{eachIngredient.metricAmount} {eachIngredient.metricUnit}</span>
         </div>
       )
     })

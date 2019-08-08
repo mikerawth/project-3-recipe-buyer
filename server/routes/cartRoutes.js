@@ -21,6 +21,7 @@ router.post('/addRecipeAndIngredients', (req, res, next) => {
       usUnit: eachIngredient.usUnit,
       metricAmount: eachIngredient.metricAmount,
       metricUnit: eachIngredient.metricUnit,
+      price: eachIngredient.price,
     }))
   })
   Promise.all(arrayOfIng)

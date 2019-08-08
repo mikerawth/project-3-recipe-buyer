@@ -7,7 +7,7 @@ const ingredientSchema = new Schema({
   usUnit: String,
   metricAmount: Number,
   metricUnit: String,
-  price: { type: Number, default: 0 },
+  price: { type: Number, default: 0.99 },
   include: { type: Boolean, default: true }
 });
 

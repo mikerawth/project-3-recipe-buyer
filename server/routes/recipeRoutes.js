@@ -113,7 +113,7 @@ router.get('/:recipeID/information', (req, res, next) => {
             })
 
             let priceArr = recipePriceObject.data.ingredients.map((eachIng) => {
-              return eachIng.price
+              return Number.parseFloat((eachIng.price / 100).toFixed(2))
             })
 
             let myPriceObject = {}
@@ -232,7 +232,7 @@ router.get('/test/', (req, res, next) => {
       })
 
       let priceArr = recipePriceObject.data.ingredients.map((eachIng) => {
-        return eachIng.price
+        return Number.parseFloat((eachIng.price / 100).toFixed(2))
       })
 
       let myPriceObject = {}
