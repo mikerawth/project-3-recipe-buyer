@@ -10,6 +10,7 @@ class RecipeSummary extends React.Component {
       theIngredients: [],
       theInstructions: [],
       theTags: [],
+      theCost: 0,
       ready: false
     }
     this.recipeID = this.props.match.params.recipeID
@@ -23,6 +24,7 @@ class RecipeSummary extends React.Component {
           theIngredients: theThing.ingredients,
           theInstructions: theThing.instructions,
           theTags: theThing.tags,
+          theCost: theThing.cost,
           ready: true,
         }, () => console.log("theThing", theThing))
       })
@@ -34,7 +36,7 @@ class RecipeSummary extends React.Component {
         <div key={i}>
           <span className="ingredient-name">{eachIngredient.name} / </span>
           <span className="ingredient-amount-us">{eachIngredient.usAmount} {eachIngredient.usUnit} / </span>
-          <span className="ingredient-amount-metric">{eachIngredient.metricAmount} {eachIngredient.metricUnit}</span>
+          {/* <span className="ingredient-amount-metric">{eachIngredient.metricAmount} {eachIngredient.metricUnit}</span> */}
         </div>
       )
     })
@@ -58,7 +60,7 @@ class RecipeSummary extends React.Component {
 
   addIngredientsToCart = () => {
     console.log(this.state.theIngredients, this.recipeID, this.state.theTitle)
-    this.props.cartService.addIngredients(this.state.theIngredients, this.recipeID, this.state.theTitle)
+    this.props.cartService.addIngredients(this.state.theIngredients, this.recipeID, this.state.theTitle, this.state.theCost)
   }
 
 

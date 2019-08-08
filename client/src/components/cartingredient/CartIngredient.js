@@ -29,6 +29,7 @@ class CartIngredient extends React.Component {
       ingUsUnit: this.props.eachIng.usUnit,
       ingMetAmount: this.props.eachIng.metricAmount,
       ingMetUnit: this.props.eachIng.metricUnit,
+      ingCost: this.props.eachIng.price,
       ready: false,
 
     })

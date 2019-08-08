@@ -6,7 +6,8 @@ const seedRecipeSchema = new Schema({
   title: String,
   ingredients: Array,
   instructions: Array,
-  tags: Array
+  tags: Array,
+  cost: Number,
 });
 
 const SeedRecipe = mongoose.model('seedRecipe', seedRecipeSchema);

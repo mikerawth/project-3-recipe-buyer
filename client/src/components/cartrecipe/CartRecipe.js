@@ -10,6 +10,7 @@ class CartRecipe extends React.Component {
     this.state = {
       recipeName: props.recipeInfo.name,
       recipeIngredients: props.recipeInfo.ingredients,
+      recipeTotal: props.recipeInfo.cost,
       ready: false,
     }
   }
@@ -40,6 +41,13 @@ class CartRecipe extends React.Component {
           <div className="cart-recipe-info d-flex-col">
             {this.displayRecipeIngredients()}
           </div>
+          <span className="d-flex">
+            <div className="ing-checkbox"></div>
+            <div className="ing-name"></div>
+            <div className="ing-amount"></div>
+            <div className="ing-unit">Total:</div>
+            <div className="ing-cost">{this.state.recipeTotal}</div>
+          </span>
         </div>
       )
     else {

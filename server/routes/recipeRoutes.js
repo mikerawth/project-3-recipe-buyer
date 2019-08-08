@@ -95,14 +95,10 @@ router.get('/:recipeID/information', (req, res, next) => {
         // if it does, then send to React Side
         res.json(theResult)
       } else {
-
-
-        const priceSearch = `/recipes/219957/priceBreakdownWidget.json`
-
+        const priceSearch = `/recipes/${req.params.recipeID}/priceBreakdownWidget.json`
         generateFoodApi(priceSearch).get()
           .then((recipePriceObject) => {
             let grabbedIngredients = recipePriceObject.data.ingredients.map((eachI) => {
-              console.log(eachI)
               return ({
                 name: eachI.name,
                 usAmount: Number((eachI.amount.us.value).toFixed(2)),
@@ -112,40 +108,25 @@ router.get('/:recipeID/information', (req, res, next) => {
                 price: Number((eachI.price / 100).toFixed(2)),
               })
             })
-
             const theSearch = `/recipes/${req.params.recipeID}/information`
-
             generateFoodApi(theSearch).get()
               .then((spoonData) => {
-
-                const tagsArray = [
-                  'vegetarian',
-                  'vegan',
-                  'glutenFree',
-                  'dairyFree',
-                  'veryHealthy',
-                  'cheap',
-                  'veryPopular',
-                  'sustainable',
-                  'lowFodmap',
-                  'ketogenic',
-                  'whole30']
-
-
+                const tagsArray = ['vegetarian', 'vegan', 'glutenFree', 'dairyFree', 'veryHealthy', 'cheap', 'veryPopular', 'sustainable', 'lowFodmap', 'ketogenic', 'whole30']
                 let grabbedTags = [];
                 tagsArray.forEach((eachT) => {
-                  if (spoonData.data[eachT]) {
-                    grabbedTags.push(eachT)
-                  }
+                  if (spoonData.data[eachT]) { grabbedTags.push(eachT) }
                 })
-
-
+                let totalCost = 0;
+                grabbedIngredients.forEach((eachI) => {
+                  totalCost += eachI.price;
+                })
                 SeedRecipe.create({
                   spoonID: spoonData.data.id,
                   title: spoonData.data.title,
                   ingredients: grabbedIngredients,
                   instructions: spoonData.data.analyzedInstructions[0].steps,
                   tags: grabbedTags,
+                  cost: Number(totalCost.toFixed(2)),
                 })
                   .then((freshlyCreatedRecipe) => {
                     res.json(freshlyCreatedRecipe)
@@ -153,32 +134,19 @@ router.get('/:recipeID/information', (req, res, next) => {
                   .catch((err) => {
                     res.json(err)
                   })
-                // res.json(response.data) // should return summary of a single recipe
               })
               .catch((err) => {
                 res.json(err)
               })
-
-
-
-
-
-            // code ends here
           })
           .catch((err) => {
             res.json(err)
           })
-
-
       }
     })
     .catch((err) => {
       res.json(err)
     })
-
-  // once created, then pass my seedRecipe that I just created
-
-
 })
 
 

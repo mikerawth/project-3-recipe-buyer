@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const ingredientSchema = new Schema({
   name: String,
   usAmount: Number,
-  usUnit: String,
+  usUnit: { type: String, default: 'units' },
   metricAmount: Number,
-  metricUnit: String,
+  metricUnit: { type: String, default: 'units' },
   price: { type: Number, default: 0.99 },
   include: { type: Boolean, default: true }
 });

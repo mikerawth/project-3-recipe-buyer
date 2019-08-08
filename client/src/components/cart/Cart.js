@@ -48,7 +48,6 @@ class Cart extends React.Component {
       return (
         <div>
           {this.displayCartRecipes()}
-          {/* Testing */}
         </div>
       )
     else {

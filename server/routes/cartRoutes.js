@@ -9,6 +9,7 @@ router.post('/addRecipeAndIngredients', (req, res, next) => {
   const ingredients = req.body.theIngredients;
   const recipeApiID = req.body.recipeApiID;
   const recipeName = req.body.recipeName;
+  const recipeCost = req.body.recipeCost;
 
   const arrayOfIng = [];
 
@@ -37,6 +38,7 @@ router.post('/addRecipeAndIngredients', (req, res, next) => {
         name: recipeName,
         apiID: recipeApiID,
         ingredients: arrayOfIngIDs,
+        cost: recipeCost,
       })
         .then((theCreatedRecipe) => {
           console.log(theCreatedRecipe._id)

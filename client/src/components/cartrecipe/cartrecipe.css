@@ -1,0 +1,34 @@
+.ing-listing:hover {
+  background-color: rgb(189, 189, 189);
+}
+
+.ing {
+  display: inline-block;
+  border: 1px solid black;
+  padding: 2.5px;
+  height: 25px;
+}
+
+.ing-checkbox {
+  width: 32px;
+}
+
+.ing-name {
+  width: 200px;
+}
+
+.ing-amount {
+  width: 75px;
+}
+
+.ing-unit {
+  display: flex;
+  justify-content: flex-start;
+  width: 65px;
+}
+
+.ing-cost {
+  display: flex;
+  justify-content: flex-end;
+  width: 75px;
+}

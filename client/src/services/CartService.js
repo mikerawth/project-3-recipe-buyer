@@ -10,8 +10,8 @@ class CartService {
     this.service = service;
   }
 
-  addIngredients = (theIngredients, recipeApiID, recipeName) => {
-    return this.service.post('/addRecipeAndIngredients', { theIngredients, recipeApiID, recipeName })
+  addIngredients = (theIngredients, recipeApiID, recipeName, recipeCost) => {
+    return this.service.post('/addRecipeAndIngredients', { theIngredients, recipeApiID, recipeName, recipeCost })
       .then(response => response.data)
   }
 
