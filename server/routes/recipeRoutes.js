@@ -54,37 +54,30 @@ router.post('/search/:theQuery', (req, res, next) => {
   SeedQueryAndResults.findOne({ query: req.params.theQuery })
     .then((theQuery) => {
       if (theQuery) {
-        console.log('we found a seed')
         res.json(theQuery)
       }
       else {
-        console.log('no seed was found, so we are doing a call to spoonacular')
         const theSearch = `/recipes/search/?query=${req.params.theQuery}`
 
         generateFoodApi(theSearch).get()
           .then((theResult) => {
-            console.log(theResult.data)
             SeedQueryAndResults.create({
               query: req.params.theQuery,
               results: theResult.data.results,
             })
               .then((theCreatedQuery) => {
-                console.log('seed was created successfully')
                 res.json(theCreatedQuery) // returns array of recipes
               })
               .catch((err) => {
-                console.log('error is with creation of a seed')
                 res.json(err)
               })
           })
           .catch((err) => {
-            console.log('error is with attempting to call spoonacular API')
             res.json(err)
           })
       }
     })
     .catch((err) => {
-      console.log('error is with the first route, attempting to even find a query')
       res.json(err)
     })
 })
@@ -108,20 +101,18 @@ router.get('/:recipeID/information', (req, res, next) => {
 
         generateFoodApi(priceSearch).get()
           .then((recipePriceObject) => {
-            let nameArr = recipePriceObject.data.ingredients.map((eachIng) => {
-              return eachIng.name
+            let grabbedIngredients = recipePriceObject.data.ingredients.map((eachI) => {
+              console.log(eachI)
+              return ({
+                name: eachI.name,
+                usAmount: Number((eachI.amount.us.value).toFixed(2)),
+                usUnit: eachI.amount.us.unit,
+                metricAmount: Number((eachI.amount.metric.value).toFixed(2)),
+                metricUnit: eachI.amount.metric.unit,
+                price: Number((eachI.price / 100).toFixed(2)),
+              })
             })
 
-            let priceArr = recipePriceObject.data.ingredients.map((eachIng) => {
-              return Number.parseFloat((eachIng.price / 100).toFixed(2))
-            })
-
-            let myPriceObject = {}
-            for (let i = 0; i < nameArr.length; i++) {
-              myPriceObject[nameArr[i]] = priceArr[i]
-            }
-            // adding code here
-            // if not, make call to API, get info, and create the seed here (on the server)
             const theSearch = `/recipes/${req.params.recipeID}/information`
 
             generateFoodApi(theSearch).get()
@@ -147,20 +138,6 @@ router.get('/:recipeID/information', (req, res, next) => {
                     grabbedTags.push(eachT)
                   }
                 })
-
-
-                let grabbedIngredients = spoonData.data.extendedIngredients.map((eachI) => {
-                  return ({
-                    spoonID: eachI.id,
-                    name: eachI.name,
-                    usAmount: eachI.measures.us.amount,
-                    usUnit: eachI.measures.us.unitLong,
-                    metricAmount: eachI.measures.metric.amount,
-                    metricUnit: eachI.measures.metric.unitLong,
-                    price: myPriceObject[eachI.name],
-                  })
-                })
-
 
 
                 SeedRecipe.create({
@@ -246,7 +223,7 @@ router.get('/test/', (req, res, next) => {
 
 
 
-      res.json(myPriceObject)
+      res.json(recipePriceObject.data.ingredients)
     })
     .catch((err) => {
       res.json(err)
