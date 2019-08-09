@@ -47,7 +47,9 @@ class CartIngredient extends React.Component {
   checkBoxToggle = () => {
     this.cartService.toggleIngredient(this.state.id, this.state.ingInclude, this.props.recipeID)
       .then((theResponse) => {
-        this.setState({ ingInclude: !this.state.ingInclude }, this.props.updateRecipePrice(theResponse.cost))
+        this.props.getUsersCart();
+        this.setState({ ingInclude: !this.state.ingInclude })
+        this.props.updateRecipePrice(theResponse.cost)
 
       })
   }

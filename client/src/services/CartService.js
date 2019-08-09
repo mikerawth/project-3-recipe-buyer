@@ -35,6 +35,11 @@ class CartService {
     return this.service.post(`/ing/toggle/`, { ingID, currentStatus, recipeID })
       .then(response => response.data)
   }
+
+  checkout = () => {
+    return this.service.post('/checkout')
+      .then(response => response.data)
+  }
 }
 
 export default CartService;

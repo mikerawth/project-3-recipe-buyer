@@ -145,7 +145,7 @@ router.post('/ing/toggle/', (req, res, next) => {
           }, 0)
           Recipe.findByIdAndUpdate(recipeID, {
             cost: Number(recipePrice.toFixed(2))
-          })
+          }, { new: true })
             .then((response) => {
               console.log('reponse-=-=-  -=-=-  -= =- =- =- =- =- ', response)
               res.json(response)
@@ -158,6 +158,60 @@ router.post('/ing/toggle/', (req, res, next) => {
         .catch((err) => {
           res.json(err)
         })
+    })
+    .catch((err) => {
+      res.json(err)
+    })
+})
+
+
+router.post('/checkout', (req, res, next) => {
+  User.findById(req.user._id).populate({
+    path: 'cart',
+    populate: {
+      path: 'ingredients',
+      model: 'Ingredient'
+    }
+  })
+    .then((theUser) => {
+      // console.log('theUser', theUser)
+      console.log('-=-=-=-=-=-=-=-=-=-')
+      // console.log('theUser.cart', theUser.cart)
+
+      // console.log('theUser.cart.ingredients', theUser.cart.ingredients)
+
+
+
+      theUser.cart.forEach((eachR) => {
+        eachR.ingredients.forEach((eachI) => {
+          Ingredient.findByIdAndDelete(eachI._id)
+            .then(() => {
+
+            })
+            .catch((err) => {
+              res.json(err)
+            })
+        })
+        Recipe.findByIdAndDelete(eachR._id)
+          .then(() => {
+
+          })
+          .catch((err) => {
+            res.json(err)
+          })
+      })
+
+      User.findByIdAndUpdate(req.user._id, {
+        cart: []
+      }, { new: true })
+        .then((response) => {
+          res.json(response)
+        })
+        .catch((err) => {
+          res.json(err)
+        })
+
+
     })
     .catch((err) => {
       res.json(err)

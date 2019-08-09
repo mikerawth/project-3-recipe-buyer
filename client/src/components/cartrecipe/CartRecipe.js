@@ -16,7 +16,8 @@ class CartRecipe extends React.Component {
   }
 
   updateRecipePrice = (updatedCost) => {
-    this.setState({ recipeTotal: updatedCost })
+    setTimeout(() => { this.setState({ recipeTotal: updatedCost }) }, 200)
+
 
   }
 
@@ -28,6 +29,7 @@ class CartRecipe extends React.Component {
             eachIng={eachIng}
             recipeID={this.props.recipeInfo._id}
             updateRecipePrice={this.updateRecipePrice}
+            getUsersCart={this.props.getUsersCart}
           />
         </div>
       )
@@ -38,14 +40,6 @@ class CartRecipe extends React.Component {
   componentDidMount() {
     this.isReady();
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return this.state.recipeTotal != nextState.recipeTotal;
-  // }
-
-  // componentWillUpdate() {
-  //   this.updateRecipePrice();
-  // }
 
   isReady = () => {
     this.setState({ ready: true })
@@ -64,7 +58,7 @@ class CartRecipe extends React.Component {
             <div className="ing-name"></div>
             <div className="ing-amount"></div>
             <div className="ing-unit">Total:</div>
-            <div className="ing-cost">${this.state.recipeTotal}</div>
+            <div className="ing-cost">${this.state.recipeTotal.toFixed(2)}</div>
           </span>
         </div>
       )
