@@ -1,4 +1,5 @@
 import React from 'react';
+import IngredientsAddedScreen from '../ingredientsaddedscreen/IngredientsAddedScreen'
 
 
 
@@ -11,7 +12,8 @@ class RecipeSummary extends React.Component {
       theInstructions: [],
       theTags: [],
       theCost: 0,
-      ready: false
+      ready: false,
+      ingredientScreen: false,
     }
     this.recipeID = this.props.match.params.recipeID
   }
@@ -61,6 +63,7 @@ class RecipeSummary extends React.Component {
   addIngredientsToCart = () => {
     console.log(this.state.theIngredients, this.recipeID, this.state.theTitle)
     this.props.cartService.addIngredients(this.state.theIngredients, this.recipeID, this.state.theTitle, this.state.theCost)
+    this.setState({ ingredientScreen: true })
   }
 
 
@@ -101,6 +104,8 @@ class RecipeSummary extends React.Component {
             <button onClick={this.addIngredientsToCart}>Add Ingredients</button>
           }
 
+          {this.state.ingredientScreen &&
+            <IngredientsAddedScreen />}
 
         </div>
       )

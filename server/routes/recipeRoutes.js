@@ -87,7 +87,6 @@ router.post('/search/:theQuery', (req, res, next) => {
 // If already in DB, then pass in that recipe
 // If not, then call to Spoonacular, get the info, and create the recipe on my end
 router.get('/:recipeID/information', (req, res, next) => {
-
   // check if recipeID exists in my seedRecipe
   SeedRecipe.findOne({ spoonID: req.params.recipeID })
     .then((theResult) => {

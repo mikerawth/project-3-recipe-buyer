@@ -2,6 +2,9 @@ import React from 'react';
 import CartService from '../../services/CartService'
 
 import CartRecipe from '../cartrecipe/CartRecipe'
+import Checkout from '../checkout/Checkout'
+
+import './cart.css'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -11,6 +14,7 @@ class Cart extends React.Component {
       cartRecipes: [],
       ready: false,
       cartTotal: 0,
+      checkoutScreen: false,
     }
     this.cartService = new CartService()
   }
@@ -18,7 +22,16 @@ class Cart extends React.Component {
   getUsersCart = () => {
     this.cartService.grabUserAndCart()
       .then((theUsersInfo) => {
-        this.setState({ cartRecipes: theUsersInfo.cart })
+        this.setState({ cartRecipes: theUsersInfo.cart },
+          () => {
+            // console.log(this.state.cartRecipes)
+            let recipeCostArray = this.state.cartRecipes.map((eachR) => {
+              return eachR.cost
+            })
+            // console.log(recipeCostArray)
+            let theCartTotal = recipeCostArray.reduce((a, b) => a + b, 0)
+            this.setState({ cartTotal: theCartTotal })
+          })
       })
   }
 
@@ -44,19 +57,26 @@ class Cart extends React.Component {
     })
   }
 
+  updateCartPriceTotal = (priceUpdate) => {
+    this.setState({ cartTotal: priceUpdate })
+  }
+
   checkout = () => {
     this.cartService.checkout()
+    this.setState({ checkoutScreen: true })
   }
 
   render() {
     if (this.state.ready)
       return (
         <div>
-          <div>
-            <div>Total: {this.state.cartTotal}</div>
+          <div className="cart-total">
+            <div>Total: ${this.state.cartTotal.toFixed(2)}</div>
             <button onClick={() => { this.checkout() }}>Checkout</button>
           </div>
           {this.displayCartRecipes()}
+          {this.state.checkoutScreen &&
+            <Checkout />}
         </div>
       )
     else {

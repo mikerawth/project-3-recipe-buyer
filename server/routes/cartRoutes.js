@@ -10,12 +10,8 @@ router.post('/addRecipeAndIngredients', (req, res, next) => {
   const recipeApiID = req.body.recipeApiID;
   const recipeName = req.body.recipeName;
   const recipeCost = req.body.recipeCost;
-
   const arrayOfIng = [];
-
-
   ingredients.forEach((eachIngredient) => {
-
     arrayOfIng.push(Ingredient.create({
       name: eachIngredient.name,
       usAmount: eachIngredient.usAmount,
@@ -27,13 +23,9 @@ router.post('/addRecipeAndIngredients', (req, res, next) => {
   })
   Promise.all(arrayOfIng)
     .then((eachThing) => {
-
-
       arrayOfIngIDs = eachThing.map((eachIng) => {
         return eachIng._id;
       })
-
-
       Recipe.create({
         name: recipeName,
         apiID: recipeApiID,
@@ -56,7 +48,6 @@ router.post('/addRecipeAndIngredients', (req, res, next) => {
           res.json(err)
         })
     })
-
 })
 
 // removes ALL Ingredients
