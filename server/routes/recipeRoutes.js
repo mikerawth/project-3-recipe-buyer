@@ -19,31 +19,6 @@ function generateFoodApi(queryString) {
   )
 }
 
-function getRecipeIngPricingObject(recipeID) {
-  const priceSearch = `/recipes/${recipeID}/priceBreakdownWidget.json`
-
-  generateFoodApi(priceSearch).get()
-    .then((recipePriceObject) => {
-      let nameArr = recipePriceObject.data.ingredients.map((eachIng) => {
-        return eachIng.name
-      })
-
-      let priceArr = recipePriceObject.data.ingredients.map((eachIng) => {
-        return eachIng.price
-      })
-
-      let myPriceObject = {}
-      for (let i = 0; i < nameArr.length; i++) {
-        myPriceObject[nameArr[i]] = priceArr[i]
-      }
-      return myPriceObject;
-
-    })
-    .catch((err) => {
-      res.json(err)
-    })
-}
-
 router.get('/', (req, res, next) => {
   res.json(foodApi)
 })

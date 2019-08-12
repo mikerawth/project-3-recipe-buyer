@@ -37,10 +37,8 @@ class RecipeSearch extends Component {
     return this.state.searchResults.map((eachRecipe, i) => {
       return (
         <div key={i} className="recipe-search-result">
-          {/* //   <Link to={`recipes/summary/${eachRecipe.id}`}>
-          //     {eachRecipe.title}
-          //   </Link> */}
           <RecipeSearchResult
+            recipe={eachRecipe}
             recipeID={eachRecipe.id}
             recipeTitle={eachRecipe.title}
           />

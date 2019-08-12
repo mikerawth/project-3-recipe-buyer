@@ -5,9 +5,13 @@ import './recipesearchresult.css'
 function RecipeSearchResult(props) {
 
   return (
-    <Link to={`recipes/summary/${props.recipeID}`}>
-      {props.recipeTitle}
-    </Link>
+    <div>
+      <img className="recipe-search-image" src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} />
+      <Link to={`recipes/summary/${props.recipeID}`}>
+        {props.recipeTitle}
+        {console.log(props.recipe)}
+      </Link>
+    </div>
   )
 
 }

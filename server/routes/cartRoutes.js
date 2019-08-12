@@ -138,7 +138,6 @@ router.post('/ing/toggle/', (req, res, next) => {
             cost: Number(recipePrice.toFixed(2))
           }, { new: true })
             .then((response) => {
-              console.log('reponse-=-=-  -=-=-  -= =- =- =- =- =- ', response)
               res.json(response)
             })
             .catch((err) => {
