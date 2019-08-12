@@ -12,6 +12,7 @@ class RecipeSummary extends React.Component {
       theInstructions: [],
       theTags: [],
       theCost: 0,
+      theImg: '',
       ready: false,
       ingredientScreen: false,
     }
@@ -27,6 +28,7 @@ class RecipeSummary extends React.Component {
           theInstructions: theThing.instructions,
           theTags: theThing.tags,
           theCost: theThing.cost,
+          theImg: theThing.image,
           ready: true,
         }, () => console.log("theThing", theThing))
       })
@@ -36,6 +38,7 @@ class RecipeSummary extends React.Component {
     return this.state.theIngredients.map((eachIngredient, i) => {
       return (
         <div key={i}>
+          <img className="ingredient-img" src={eachIngredient.image} alt={`${eachIngredient.name} image`} />
           <span className="ingredient-name">{eachIngredient.name} / </span>
           <span className="ingredient-amount-us">{eachIngredient.usAmount} {eachIngredient.usUnit} / </span>
           {/* <span className="ingredient-amount-metric">{eachIngredient.metricAmount} {eachIngredient.metricUnit}</span> */}
@@ -77,6 +80,12 @@ class RecipeSummary extends React.Component {
     if (this.state.ready)
       return (
         <div>
+          <img src={this.state.theImg} />
+
+          {this.props.theUser &&
+            <button onClick={this.addIngredientsToCart}>Add Ingredients</button>
+          }
+
           <div className="recipe-name">
             <h2>{this.state.theTitle}</h2>
           </div>
@@ -100,9 +109,7 @@ class RecipeSummary extends React.Component {
               {this.displayRecipeTags()}
             </ol>
           </div>
-          {this.props.theUser &&
-            <button onClick={this.addIngredientsToCart}>Add Ingredients</button>
-          }
+
 
           {this.state.ingredientScreen &&
             <IngredientsAddedScreen />}

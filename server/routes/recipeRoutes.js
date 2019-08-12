@@ -19,11 +19,6 @@ function generateFoodApi(queryString) {
   )
 }
 
-router.get('/', (req, res, next) => {
-  res.json(foodApi)
-})
-
-
 router.post('/search/:theQuery', (req, res, next) => {
 
   SeedQueryAndResults.findOne({ query: req.params.theQuery })
@@ -80,6 +75,7 @@ router.get('/:recipeID/information', (req, res, next) => {
                 metricAmount: Number((eachI.amount.metric.value).toFixed(2)),
                 metricUnit: eachI.amount.metric.unit,
                 price: Number((eachI.price / 100).toFixed(2)),
+                image: `https://spoonacular.com/cdn/ingredients_100x100/${eachI.image}`
               })
             })
             const theSearch = `/recipes/${req.params.recipeID}/information`
@@ -101,6 +97,7 @@ router.get('/:recipeID/information', (req, res, next) => {
                   instructions: spoonData.data.analyzedInstructions[0].steps,
                   tags: grabbedTags,
                   cost: Number(totalCost.toFixed(2)),
+                  image: spoonData.data.image
                 })
                   .then((freshlyCreatedRecipe) => {
                     res.json(freshlyCreatedRecipe)
@@ -123,53 +120,5 @@ router.get('/:recipeID/information', (req, res, next) => {
     })
 })
 
-
-// get ingredients for recipe
-// CHANGE TO USE FOR ONLY PRICE.  GET INGREDIENTS THROUGH INFORMATION
-router.get('/:recipeID/price', (req, res, next) => {
-  const theSearch = `/recipes/${req.params.recipeID}/priceBreakdownWidget.json`
-  generateFoodApi(theSearch).get()
-    .then((response) => {
-      res.json(response.data) // should return summary of a single recipe
-    })
-    .catch((err) => {
-      res.json(err)
-    })
-})
-
-router.get('/test/', (req, res, next) => {
-  // const theSearch = `/recipes/${req.params.recipeID}/priceBreakdownWidget.json`
-  // generateFoodApi(theSearch).get()
-
-
-  const priceSearch = `/recipes/219957/priceBreakdownWidget.json`
-
-  generateFoodApi(priceSearch).get()
-    .then((recipePriceObject) => {
-      let nameArr = recipePriceObject.data.ingredients.map((eachIng) => {
-        return eachIng.name
-      })
-
-      let priceArr = recipePriceObject.data.ingredients.map((eachIng) => {
-        return Number.parseFloat((eachIng.price / 100).toFixed(2))
-      })
-
-      let myPriceObject = {}
-      for (let i = 0; i < nameArr.length; i++) {
-        myPriceObject[nameArr[i]] = priceArr[i]
-      }
-
-
-
-
-
-
-
-      res.json(recipePriceObject.data.ingredients)
-    })
-    .catch((err) => {
-      res.json(err)
-    })
-})
 
 module.exports = router;

@@ -6,6 +6,7 @@ const recipeSchema = new Schema({
   apiID: String,
   ingredients: [{ type: Schema.Types.ObjectId, ref: "Ingredient" }],
   cost: Number,
+  image: String,
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
