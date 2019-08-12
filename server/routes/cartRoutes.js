@@ -10,6 +10,7 @@ router.post('/addRecipeAndIngredients', (req, res, next) => {
   const recipeApiID = req.body.recipeApiID;
   const recipeName = req.body.recipeName;
   const recipeCost = req.body.recipeCost;
+  const recipeImg = req.body.recipeImg;
   const arrayOfIng = [];
   ingredients.forEach((eachIngredient) => {
     arrayOfIng.push(Ingredient.create({
@@ -19,6 +20,7 @@ router.post('/addRecipeAndIngredients', (req, res, next) => {
       metricAmount: eachIngredient.metricAmount,
       metricUnit: eachIngredient.metricUnit,
       price: eachIngredient.price,
+      image: eachIngredient.image,
     }))
   })
   Promise.all(arrayOfIng)
@@ -31,6 +33,7 @@ router.post('/addRecipeAndIngredients', (req, res, next) => {
         apiID: recipeApiID,
         ingredients: arrayOfIngIDs,
         cost: recipeCost,
+        image: recipeImg,
       })
         .then((theCreatedRecipe) => {
           console.log(theCreatedRecipe._id)

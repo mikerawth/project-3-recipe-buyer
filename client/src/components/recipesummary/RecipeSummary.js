@@ -65,7 +65,7 @@ class RecipeSummary extends React.Component {
 
   addIngredientsToCart = () => {
     console.log(this.state.theIngredients, this.recipeID, this.state.theTitle)
-    this.props.cartService.addIngredients(this.state.theIngredients, this.recipeID, this.state.theTitle, this.state.theCost)
+    this.props.cartService.addIngredients(this.state.theIngredients, this.recipeID, this.state.theTitle, this.state.theCost, this.state.theImg)
     this.setState({ ingredientScreen: true })
   }
 
