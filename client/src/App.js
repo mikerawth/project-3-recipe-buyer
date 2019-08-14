@@ -60,7 +60,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App ">
         <Navbar
           theUser={this.state.currentlyLoggedIn}
           pleaseLogOut={() => this.authService.logout()}
@@ -80,20 +80,7 @@ class App extends React.Component {
           />
         }
 
-        {/* <div>My Heroku updated if this is showing on Heroku</div> */}
         <Switch>
-
-          {/* <Route exact path="/login" render={(props) =>
-            <Login
-              getUser={this.getCurrentlyLoggedInUser}
-            />} />
-
-          <Route exact path="/signup" render={(props) =>
-            <Signup
-              getUser={this.getCurrentlyLoggedInUser}
-            />} /> */}
-
-
           <Route exact path="/" render={(props) =>
             <Main
               message={this.state.message}

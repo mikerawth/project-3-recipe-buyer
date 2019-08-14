@@ -26,8 +26,8 @@ function Navbar(props) {
       <div>
         {!props.theUser &&
           <span>
-            <button onClick={() => props.toggleForm('login')} > Login </button>
-            <button onClick={() => props.toggleForm('signup')}>Sign Up</button>
+            <button className="button is-small" onClick={() => props.toggleForm('login')} > Login </button>
+            <button className="button is-small" onClick={() => props.toggleForm('signup')}>Sign Up</button>
           </span>
         }
 
