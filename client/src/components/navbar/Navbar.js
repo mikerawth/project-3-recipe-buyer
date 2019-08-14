@@ -16,9 +16,9 @@ function Navbar(props) {
     <div className="Navbar">
       <div>
         <span>
-          <NavLink to="/">Home</NavLink>
+          <NavLink className="button is-small" to="/">Home</NavLink>
           {props.theUser &&
-            <NavLink to="/cart">Cart</NavLink>
+            <NavLink className="button is-small" to="/cart">Cart</NavLink>
           }
         </span>
       </div>
@@ -34,7 +34,7 @@ function Navbar(props) {
         {props.theUser &&
           <span>
             <span>{props.theUser.username}</span>
-            <button onClick={doTheLogout} >Log Out </button>
+            <button className="button is-small" onClick={doTheLogout} >Log Out </button>
           </span>
         }
       </div>

@@ -5,12 +5,15 @@ import './recipesearchresult.css'
 function RecipeSearchResult(props) {
 
   return (
-    <div>
-      <img className="recipe-search-image" src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} />
-      <Link to={`recipes/summary/${props.recipeID}`}>
-        {props.recipeTitle}
-        {console.log(props.recipe)}
-      </Link>
+    <div className="box columns">
+      <img className="recipe-search-image column is-2" src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} />
+      <div className="column">
+        <Link to={`recipes/summary/${props.recipeID}`}>
+          {props.recipeTitle}
+          {console.log(props.recipe)}
+        </Link>
+      </div>
+
     </div>
   )
 

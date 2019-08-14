@@ -63,8 +63,9 @@ class RecipeSearch extends Component {
 
         </form>
 
-
-        {this.displayRecipeSearchResults()}
+        <div>
+          {this.displayRecipeSearchResults()}
+        </div>
       </div>
     )
   }
