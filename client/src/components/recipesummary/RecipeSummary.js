@@ -38,10 +38,17 @@ class RecipeSummary extends React.Component {
   displayRecipeIngredients = () => {
     return this.state.theIngredients.map((eachIngredient, i) => {
       return (
-        <div key={i}>
-          <img className="ingredient-img" src={eachIngredient.image} alt={`${eachIngredient.name} image`} />
-          <span className="ingredient-name">{eachIngredient.name} / </span>
-          <span className="ingredient-amount-us">{eachIngredient.usAmount} {eachIngredient.usUnit} / </span>
+        <div key={i} className="summary-recipe-ingredient-listing columns block">
+          <div className="column is-2">
+            <img className="ingredient-img " src={eachIngredient.image} alt={`${eachIngredient.name} image`} />
+          </div>
+
+          <div className="column is-2">
+            <span className="ingredient-name ">{eachIngredient.name}</span>
+          </div>
+          <div column="column is-2">
+            <span className="ingredient-amount-us ">{eachIngredient.usAmount} {eachIngredient.usUnit}</span>
+          </div>
         </div>
       )
     })
@@ -93,7 +100,6 @@ class RecipeSummary extends React.Component {
 
           <div className="recipe-ingredient-list block">
             <h3 className="title is-3">Ingredients</h3>
-            <table></table>
             {this.displayRecipeIngredients()}
           </div>
 

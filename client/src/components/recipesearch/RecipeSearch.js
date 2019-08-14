@@ -51,15 +51,15 @@ class RecipeSearch extends Component {
 
   render() {
     return (
-      <div className="recipe-search-bar block">
+      <div className="recipe-search-bar block field has-addons">
         <h3 className="title is-3">Look Up Recipe</h3>
         <form className="recipe-search-form" onSubmit={this.searchRecipe}>
-          <input className="recipe-search-input" value={this.state.recipeName}
+          <input className="recipe-search-input input" value={this.state.recipeName}
             name="recipeName"
             onChange={this.handleChange}
           />
 
-          <button>Submit</button>
+          <button className="button is-info">Submit</button>
 
         </form>
 

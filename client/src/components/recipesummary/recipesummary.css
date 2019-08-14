@@ -11,3 +11,9 @@
   top: 0px;
   right: 0px;
 } */
+
+.summary-recipe-ingredient-listing {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
