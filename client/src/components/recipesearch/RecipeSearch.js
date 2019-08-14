@@ -51,8 +51,8 @@ class RecipeSearch extends Component {
 
   render() {
     return (
-      <div className="recipe-search-bar">
-        <h3>Look Up Recipe</h3>
+      <div className="recipe-search-bar block">
+        <h3 className="title is-3">Look Up Recipe</h3>
         <form className="recipe-search-form" onSubmit={this.searchRecipe}>
           <input className="recipe-search-input" value={this.state.recipeName}
             name="recipeName"
@@ -63,7 +63,7 @@ class RecipeSearch extends Component {
 
         </form>
 
-        <div>
+        <div className="block">
           {this.displayRecipeSearchResults()}
         </div>
       </div>

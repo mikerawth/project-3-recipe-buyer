@@ -1,5 +1,6 @@
 import React from 'react';
 import IngredientsAddedScreen from '../ingredientsaddedscreen/IngredientsAddedScreen'
+import './recipesummary.css'
 
 
 
@@ -30,7 +31,7 @@ class RecipeSummary extends React.Component {
           theCost: theThing.cost,
           theImg: theThing.image,
           ready: true,
-        }, () => console.log("theThing", theThing))
+        })
       })
   }
 
@@ -41,7 +42,6 @@ class RecipeSummary extends React.Component {
           <img className="ingredient-img" src={eachIngredient.image} alt={`${eachIngredient.name} image`} />
           <span className="ingredient-name">{eachIngredient.name} / </span>
           <span className="ingredient-amount-us">{eachIngredient.usAmount} {eachIngredient.usUnit} / </span>
-          {/* <span className="ingredient-amount-metric">{eachIngredient.metricAmount} {eachIngredient.metricUnit}</span> */}
         </div>
       )
     })
@@ -79,36 +79,38 @@ class RecipeSummary extends React.Component {
 
     if (this.state.ready)
       return (
-        <div>
-          <img src={this.state.theImg} />
+        <div className="block">
+          <div className="block summary-top">
+            <img className="summary-image" src={this.state.theImg} />
+            <h3 className="title is-2 recipe-name">{this.state.theTitle}</h3>
 
-          {this.props.theUser &&
-            <button onClick={this.addIngredientsToCart}>Add Ingredients</button>
-          }
+            {this.props.theUser &&
+              <button className="button is-primary add-btn" onClick={this.addIngredientsToCart}>Add Ingredients</button>
+            }
 
-          <div className="recipe-name">
-            <h2>{this.state.theTitle}</h2>
           </div>
 
-          <div className="recipe-ingredient-list">
-            <h3>Ingredients</h3>
+
+          <div className="recipe-ingredient-list block">
+            <h3 className="title is-3">Ingredients</h3>
+            <table></table>
             {this.displayRecipeIngredients()}
           </div>
 
 
-          <div className="recipe-directions">
-            <h3>Directions</h3>
+          <div className="recipe-directions block">
+            <h3 className="title is-3">Directions</h3>
             <ol>
               {this.displayRecipeInstructions()}
             </ol>
           </div>
 
-          <div className="recipe-tags">
+          {/* <div className="recipe-tags">
             <h3>Tags</h3>
             <ol>
               {this.displayRecipeTags()}
             </ol>
-          </div>
+          </div> */}
 
 
           {this.state.ingredientScreen &&

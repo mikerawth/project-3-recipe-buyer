@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 85%;
   height: 100%;
+  margin-top: 25px;
 }
 
 .recipe-search-form {

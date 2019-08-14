@@ -80,25 +80,29 @@ class App extends React.Component {
           />
         }
 
-        <Switch>
-          <Route exact path="/" render={(props) =>
-            <Main
-              message={this.state.message}
-            />} />
+        <div class="container">
 
-          <Route exact path="/recipes/summary/:recipeID" render={(props) =>
-            <RecipeSummary
-              {...props}
-              currentRecipeID={this.state.currentRecipeID}
-              foodService={this.foodService}
-              cartService={this.cartService}
-              theUser={this.state.currentlyLoggedIn}
-            />} />
 
-          <Route exact path="/cart" render={(props) =>
-            <Cart
-            />} />
-        </Switch>
+          <Switch>
+            <Route exact path="/" render={(props) =>
+              <Main
+                message={this.state.message}
+              />} />
+
+            <Route exact path="/recipes/summary/:recipeID" render={(props) =>
+              <RecipeSummary
+                {...props}
+                currentRecipeID={this.state.currentRecipeID}
+                foodService={this.foodService}
+                cartService={this.cartService}
+                theUser={this.state.currentlyLoggedIn}
+              />} />
+
+            <Route exact path="/cart" render={(props) =>
+              <Cart
+              />} />
+          </Switch>
+        </div>
       </div>
     );
   }

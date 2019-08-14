@@ -13,7 +13,7 @@ function Navbar(props) {
   }
 
   return (
-    <div className="Navbar">
+    <div className="Navbar block">
       <div>
         <span>
           <NavLink className="button is-small" to="/">Home</NavLink>

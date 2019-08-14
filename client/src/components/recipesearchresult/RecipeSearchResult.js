@@ -6,7 +6,7 @@ function RecipeSearchResult(props) {
 
   return (
     <div className="box columns">
-      <img className="recipe-search-image column is-2" src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} />
+      <img className="recipe-search-image" src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} />
       <div className="column">
         <Link to={`recipes/summary/${props.recipeID}`}>
           {props.recipeTitle}
