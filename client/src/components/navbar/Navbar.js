@@ -14,8 +14,10 @@ function Navbar(props) {
 
   return (
     <div className="Navbar block">
+      {/* <span><h1 className="title is-3 recipe-buyer-title">RECIPE BUYER</h1></span> */}
       <div>
         <span>
+          <span className="recipe-buyer-title">RECIPE BUYER</span>
           <NavLink className="button is-small" to="/">Home</NavLink>
           {props.theUser &&
             <NavLink className="button is-small" to="/cart">Cart</NavLink>

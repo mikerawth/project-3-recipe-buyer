@@ -16,3 +16,9 @@
 .Navbar > div > span > * {
   margin: 0 5px;
 }
+
+.recipe-buyer-title {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: sans-serif;
+}

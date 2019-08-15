@@ -34,6 +34,17 @@ class RecipeSearch extends Component {
 
   displayRecipeSearchResults = () => {
 
+    if (this.state.searchResults.length == 0) {
+      return (
+        <div className="message box">
+          <p>Hello!  Welcome to my app, Recipe Buyer!  This app is suppose to simulate a website where you do your food shopping based on the recipes you want to cook</p>
+          <p>Please note that this website is just a <strong>simulation</strong> of a working website.  You won't be able to actually buy anything.</p>
+          <p>Enjoy!</p>
+          <p>Michael</p>
+        </div>
+      )
+    }
+
     return this.state.searchResults.map((eachRecipe, i) => {
       return (
         <div key={i} className="recipe-search-result">

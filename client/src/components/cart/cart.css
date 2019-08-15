@@ -3,6 +3,7 @@
   top: 85px;
   right: 10px;
   border: 1px solid black;
+  background-color: white;
   padding: 10px;
   display: flex;
   flex-direction: column;
