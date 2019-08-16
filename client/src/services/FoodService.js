@@ -23,27 +23,22 @@ class FoodService {
       })
   }
 
-  getRecipeSummary = (recipeID) => {
-    return this.service.get(`/${recipeID}/information`)
+  getRecipeSummary = (apiRecipeID) => {
+    return this.service.get(`/${apiRecipeID}/information`)
       .then(response => response.data)
   }
 
   // CHANGE TO GET PRICE OF RECIPE'S INGREDIENTS
-  getRecipeIngredients = (recipeID) => {
-    return this.service.get(`/${recipeID}/ingredients`)
+  getRecipeIngredients = (apiRecipeID) => {
+    return this.service.get(`/${apiRecipeID}/ingredients`)
       .then(response => response.data)
   }
 
   // DO NOT USE
-  getRecipeInstructions = (recipeID) => {
-    return this.service.get(`/${recipeID}/instructions`)
+  getRecipeInstructions = (apiRecipeID) => {
+    return this.service.get(`/${apiRecipeID}/instructions`)
       .then(response => response.data)
   }
-
-  // addIngredients = (theIngredients, apiID) => {
-  //   return this.service.post('/cart/addIngredients', { theIngredients, apiID })
-  //     .then(response => response.data)
-  // }
 }
 
 export default FoodService

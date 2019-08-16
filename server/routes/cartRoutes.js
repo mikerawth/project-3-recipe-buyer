@@ -167,14 +167,6 @@ router.post('/checkout', (req, res, next) => {
     }
   })
     .then((theUser) => {
-      // console.log('theUser', theUser)
-      console.log('-=-=-=-=-=-=-=-=-=-')
-      // console.log('theUser.cart', theUser.cart)
-
-      // console.log('theUser.cart.ingredients', theUser.cart.ingredients)
-
-
-
       theUser.cart.forEach((eachR) => {
         eachR.ingredients.forEach((eachI) => {
           Ingredient.findByIdAndDelete(eachI._id)
@@ -204,85 +196,6 @@ router.post('/checkout', (req, res, next) => {
           res.json(err)
         })
 
-
-    })
-    .catch((err) => {
-      res.json(err)
-    })
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-router.delete('/recipe/single', (req, res, next) => {
-  const theID = req.body.recipeID;
-
-  Recipe.findById(theID)
-    .then((theRecipe) => {
-
-      theRecipe.ingredients.forEach((eachIngID) => {
-        Ingredient.findByIdAndDelete(eachIngID)
-      })
-
-      Recipe.findByIdAndDelete(theID)
-        .then((response) => {
-          res.json(response)
-        })
-        .catch((err) => {
-          res.json(err)
-        })
-    })
-    .catch((err) => {
-      res.json(err)
-    })
-})
-
-router.delete('/recipe/ingredients', (req, res, next) => {
-  const theID = req.body.recipeID;
-
-  Recipe.findById(theID)
-    .then((theRecipe) => {
-
-      theRecipe.ingredients.forEach((eachIngID) => {
-        Ingredient.findByIdAndDelete(eachIngID)
-          .then((response) => {
-            res.json(response)
-          })
-          .catch((err) => {
-            res.json(err)
-          })
-      })
-    })
-    .catch((err) => {
-      res.json(err)
-    })
-})
-
-router.delete('/allUsersRecipesAndIngredients', (req, res, next) => {
-  User.deleteMany()
-    .then(() => {
-      Recipe.deleteMany()
-        .then(() => {
-          Ingredient.deleteMany()
-            .then((response) => {
-              res.json(response)
-            })
-            .catch((err) => {
-              res.json(err)
-            })
-        })
     })
     .catch((err) => {
       res.json(err)
