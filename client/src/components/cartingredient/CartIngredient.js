@@ -78,7 +78,7 @@ class CartIngredient extends React.Component {
   displayRecipeIngredients = () => {
     return (
       <div className="ing-listing d-flex">
-        <div className="ing">{this.ingredientCheckBox()}</div>
+        <div className="ing is-toggle">{this.ingredientCheckBox()}</div>
         <div className="ing ing-name">{this.state.ingName}</div>
         <div className="ing ing-amount">{this.state.ingUsAmount}</div>
         <div className="ing ing-unit">{this.state.ingUsUnit}</div>

@@ -2,33 +2,39 @@
   background-color: rgb(189, 189, 189);
 }
 
+.ingredient-listing {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 .ing {
   display: inline-block;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 2.5px;
   height: 25px;
 }
 
 .ing-checkbox {
-  width: 32px;
+  /* width: 32px; */
 }
 
 .ing-name {
-  width: 200px;
+  /* width: 200px; */
 }
 
 .ing-amount {
-  width: 75px;
+  /* width: 75px; */
 }
 
 .ing-unit {
   display: flex;
   justify-content: flex-start;
-  width: 65px;
+  /* width: 65px; */
 }
 
 .ing-cost {
   display: flex;
   justify-content: flex-end;
-  width: 75px;
+  /* width: 75px; */
 }

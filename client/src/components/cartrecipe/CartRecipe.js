@@ -16,9 +16,7 @@ class CartRecipe extends React.Component {
   }
 
   updateRecipePrice = (updatedCost) => {
-    setTimeout(() => { this.setState({ recipeTotal: updatedCost }) }, 200)
-
-
+    this.setState({ recipeTotal: updatedCost })
   }
 
   displayRecipeIngredients = () => {
@@ -50,7 +48,7 @@ class CartRecipe extends React.Component {
       return (
         <div className="cart-recipe d-flex-col">
           <div className="cart-recipe-header"><h3>{this.state.recipeName}</h3></div>
-          <div className="cart-recipe-info d-flex-col">
+          <div className="cart-recipe-info ">
             {this.displayRecipeIngredients()}
           </div>
           <span className="d-flex">

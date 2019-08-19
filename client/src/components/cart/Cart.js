@@ -49,7 +49,7 @@ class Cart extends React.Component {
   displayCartRecipes = () => {
     return this.state.cartRecipes.map((eachRecipe) => {
       return (
-        <div className="block" key={eachRecipe._id}>
+        <div className="box recipe-box-display" key={eachRecipe._id}>
           <CartRecipe recipeInfo={eachRecipe}
             getUsersCart={this.getUsersCart} />
         </div>
@@ -74,9 +74,11 @@ class Cart extends React.Component {
             <div>Total: ${this.state.cartTotal.toFixed(2)}</div>
             <button className="button is-success" onClick={() => { this.checkout() }}>Checkout</button>
           </div>
-          {this.displayCartRecipes()}
           {this.state.checkoutScreen &&
             <Checkout />}
+
+
+          {this.displayCartRecipes()}
         </div>
       )
     else {
